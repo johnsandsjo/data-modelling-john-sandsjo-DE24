@@ -27,6 +27,14 @@ Since many to many, we need to replace with a bridge table. In this case we coul
 - A Borrowing is linked to one and only one Book
 - A book can be linked can be in zero, one or more Borrowings over time. 
 
+Adding attributes for Borrow
+- Borrow
+    - borrow_id
+    - ISBN
+    - membership_id
+    - borrow_date
+    - return_date
+
 ---
 
 ## Exercise 0.3
@@ -35,11 +43,16 @@ Since many to many, we need to replace with a bridge table. In this case we coul
 The entities are the Objects in this regard. 
 
 ### b)
-- Customer *rents* Rental
+- Customer *makes* a Rental
 - Rental *includes* Car
 
 ### c) 
 *Describe the relationships between the entities (one-to-many, one-to-one and many-to-many).*
 Cutomer to Rental is a one to many relationship. One Customer can have 1 or many rentals. But one rental can only have 1 customer
-Rental to Car is one to many relationship. One Rental can only include one car but one car have many Rentals
+Rental to Car is many to one relationship. One Rental can only include one car but one car have many Rentals
 
+d) 
+- Customer makes one one more rentals over time
+- Rental are connected to one Customer
+- Each Rental is for one Car
+- Each Car can be in many Rentals over time

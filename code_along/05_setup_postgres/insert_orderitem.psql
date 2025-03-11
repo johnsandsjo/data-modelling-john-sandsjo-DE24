@@ -1,0 +1,10 @@
+SET search_path TO ezecream_05;
+
+INSERT INTO orderitem (order_id, product_id, quantity)
+VALUES 
+    (10, 3, 20),
+    (11, 2, 5);
+
+SELECT * FROM ezecream_05.OrderItem;
+
+DELETE FROM ezecream_05.orderitem WHERE orderitem_id = 5;

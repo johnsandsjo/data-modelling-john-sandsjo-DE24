@@ -1,0 +1,4 @@
+SELECT order_id, order_date, first_name, last_name
+FROM ezecream_05.orders as o
+LEFT JOIN ezecream_05.customer as c
+ON o.customer_id = c.customer_id;

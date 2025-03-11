@@ -1,0 +1,12 @@
+SET search_path TO ezecream_05;
+
+INSERT INTO product (name, price)
+VALUES 
+    ('blåbärsmagi', 35),
+    ('lakritsdrömmar', 40),
+    ('lichipichi', 30);
+
+SELECT * FROM ezecream_05.product;
+
+DELETE FROM ezecream_05.product
+WHERE product_id = 2;

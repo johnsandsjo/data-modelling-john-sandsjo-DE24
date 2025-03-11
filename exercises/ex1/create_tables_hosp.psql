@@ -1,17 +1,44 @@
 CREATE SCHEMA IF NOT EXISTS hospital_ex1;
 
-SET search_path TO ezecream_05;
--- instead of typying ezecream_05.table_name
+SET search_path TO hospital_ex1;
 
-CREATE TABLE IF NOT EXISTS Customer (
-    customer_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50)NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    personal_number CHAR(12),
-    email VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS Hospital (
+    hospital_id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
     address VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS Department (
+    department_id SERIAL PRIMARY KEY,
+    name varchar(50)
+);
 
-CREATE TABLE IF NOT EXISTS Hospital
-()
+
+CREATE TABLE IF NOT EXISTS Doctor (
+    doctor_id SERIAL PRIMARY KEY,
+    name varchar(50)
+);
+
+CREATE TABLE IF NOT EXISTS hospital_ex1.HospitalDepartment (
+    hospitaldepartment_id SERIAL PRIMARY KEY,
+    hospital_id INTEGER,
+    department_id INTEGER,
+    FOREIGN KEY (hospital_id) REFERENCES hospital_ex1.hospital (hospital_id) ON DELETE CASCADE,
+    FOREIGN KEY (department_id) REFERENCES hospital_ex1.department (department_id)
+);
+
+CREATE TABLE IF NOT EXISTS hospital_ex1.HospitalDoctor (
+    hospitaldoctor_id SERIAL PRIMARY KEY,
+    hospital_id INTEGER,
+    doctor_id INTEGER,
+    FOREIGN KEY (hospital_id) REFERENCES hospital_ex1.hospital (hospital_id) ON DELETE CASCADE,
+    FOREIGN KEY (doctor_id) REFERENCES hospital_ex1.doctor (doctor_id)
+);
+
+CREATE TABLE IF NOT EXISTS DoctorDepartment (
+    departmentdoctor_id SERIAL PRIMARY KEY,
+    doctor_id INTEGER,
+    department_id INTEGER,
+    FOREIGN KEY (doctor_id) REFERENCES hospital_ex1.doctor (doctor_id),
+    FOREIGN KEY (department_id) REFERENCES hospital_ex1.department (department_id)
+);

@@ -1,0 +1,33 @@
+Table Hospital	{
+  hospital_id integer [primary key]
+  name varchar(50)
+  address varchar(100)
+  }
+
+Table HospitalDepartment	{
+  hospitaldepartment_id integer [primary key]
+  hospital_id integer [ref: > Hospital.hospital_id]
+  department_id integer [ref: > Department.department_id]
+}
+
+Table Department {
+  department_id INTEGER [primary key]
+  name varchar(50)
+}	
+
+Table HospitalDoctor {
+  hospitaldoctor_id INTEGER [primary key]
+  hospital_id integer [ref: > Hospital.hospital_id]
+  doctor_id integer [ref: > Doctor.doctor_id]
+}
+
+Table Doctor	{
+    doctor_id integer [primary key]
+    name varchar(50)
+  }
+
+Table DoctorDepartment	{
+  doctor_department_id integer [primary key]
+  department_id integer [ref: > Department.department_id]
+  doctor_id integer [ref: > Doctor.doctor_id]
+}

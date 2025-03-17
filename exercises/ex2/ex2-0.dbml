@@ -1,0 +1,17 @@
+Table Customer {
+    customer_id integer [primary key]
+    customer_name varchar(50)
+    address varchar(100)
+    }
+
+Table Order {
+    order_id integer [primary key]
+    order_date date
+    customer_id integer
+    }
+
+Table Product {
+    product_id integer [primary key]
+    product_name varchar(50)
+}
+

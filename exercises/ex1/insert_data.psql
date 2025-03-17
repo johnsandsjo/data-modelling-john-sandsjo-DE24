@@ -4,7 +4,6 @@ INSERT INTO hospital (name, address)
 VALUES  ('Sjukhusstocken', 'Drottninggatan 3, Stockholm'),
         ('Södersjukhuset', 'Ringvägen 100, Stockholm');
 
-SET search_path TO hospital_ex1;
 INSERT INTO doctor (name)
 VALUES 
     ('Dr. Abra Abrahamson'),
@@ -36,10 +35,11 @@ VALUES
     (3, 4),
     (3, 4);
 
+SET search_path TO hospital_ex1;
 INSERT INTO hospitaldoctor (hospital_id, doctor_id)
 VALUES 
-    (1, 1),
-    (1, 2),
+    --(1, 1),
+    --(1, 2),
     (2, 1),
     (2, 3),
     (2, 4);
@@ -118,3 +118,12 @@ CHECK (address LIKE '%,%');
 
 INSERT INTO hospital_ex1.hospital (hospital_id, name, address)
 VALUES (11, 'sjukus2', 'sjukhusadress');
+
+
+-- Test some joins
+SELECT h.name, d.name
+FROM hospital_ex1.hospital as h
+LEFT JOIN hospital_ex1.hospitaldoctor as hd
+ON h.hospital_id = hd.hospital_id
+LEFT JOIN hospital_ex1.doctor as d
+ON d.doctor_id = hd.doctor_id;

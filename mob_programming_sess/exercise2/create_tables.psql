@@ -1,0 +1,40 @@
+CREATE SCHEMA IF NOT EXISTS mob_school;
+
+CREATE TABLE IF NOT EXISTS mob_school.School (
+  school_id integer PRIMARY KEY,
+  name varchar(50),
+  address varchar(50)
+);
+
+CREATE TABLE IF NOT EXISTS mob_school.Teacher (
+  teacher_id integer PRIMARY KEY,
+  "name" varchar(50)
+);
+
+CREATE TABLE IF NOT EXISTS mob_school.Course (
+  course_id integer PRIMARY KEY,
+  name varchar(50)
+  );
+
+CREATE TABLE IF NOT EXISTS mob_school.SchoolTeacherCourse (
+  school_id integer,
+  teacher_id integer,
+  course_id integer,
+  FOREIGN KEY (school_id) REFERENCES mob_school.School (school_id),
+  FOREIGN KEY (teacher_id) REFERENCES mob_school.Teacher (teacher_id),
+  FOREIGN KEY (course_id) REFERENCES mob_school.Course (course_id)
+);
+
+CREATE TABLE IF NOT EXISTS mob_school.Student (
+  student_id integer PRIMARY KEY,
+  name varchar(50),
+  age integer
+);
+
+CREATE TABLE IF NOT EXISTS mob_school.StudentCourse (
+  student_id integer,
+  course_id integer,
+  FOREIGN KEY (course_id) REFERENCES mob_school.Course (course_id),
+  FOREIGN KEY (student_id) REFERENCES mob_school.Student (student_id)
+);
+

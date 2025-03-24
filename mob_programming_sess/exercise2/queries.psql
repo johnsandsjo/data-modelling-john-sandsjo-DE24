@@ -1,0 +1,40 @@
+SELECT * FROM mob_school.schoolteachercourse;
+
+
+--Testing joins
+--Finding all courses a student is taking.
+SELECT s.name, c.name
+FROM mob_school.studentcourse sc
+LEFT JOIN mob_school.course c
+ON sc.course_id = c.course_id 
+LEFT JOIN mob_school.student s
+ON sc.student_id = s.student_id
+WHERE s.student_id = 102;
+
+--Finding all students in a specific course.
+SELECT c.name, s.name
+FROM mob_school.course c
+LEFT JOIN mob_school.studentcourse sc
+ON c.course_id = sc.course_id
+LEFT JOIN mob_school.student s
+ON sc.student_id = s.student_id
+WHERE c.name = 'Advanced Soccer';
+
+--Finding all teachers teaching a specific course.
+SELECT c.name, t.name
+FROM mob_school.teacher t
+LEFT JOIN mob_school.schoolteachercourse stc
+ON t.teacher_id = stc.teacher_id
+LEFT JOIN mob_school.course c
+ON c.course_id = stc.course_id
+WHERE stc.course_id = 2;
+
+--Finding which teachers are in which schools.
+SELECT s.name, t.name
+FROM mob_school.schoolteachercourse stc
+LEFT JOIN mob_school.school s
+ON stc.school_id = s.school_id
+LEFT JOIN mob_school.teacher t
+ON stc.teacher_id = t.teacher_id
+GROUP BY s.name, t.name
+ORDER BY s.name;

@@ -1,0 +1,23 @@
+INSERT INTO ezecream_ex2.product (product_name, price)
+VALUES 
+    ('Blåbärsmagi', 25),
+    ('Lakritsdröm', 34),
+    ('Lichipichi', 50),
+    ('Gitlass', 100);
+
+INSERT INTO ezecream_ex2.customer (customer_name, address)
+VALUES 
+    ('Ragnar Lodbrok', 'hej'),
+    ('Feliz Fernadu	', 'hejdå');
+
+INSERT INTO ezecream_ex2.order (order_id, order_date, customer_id)
+VALUES 
+   (101, '2025-03-12', 11);
+   (102, '2025-03-12', 12);
+
+INSERT INTO ezecream_ex2.order_detail (order_id, product_id, quantity, receipt_price)
+VALUES 
+    (101, 1, 40, 1400),
+    (101, 2, 30, 1020),
+    (101, 3, 22, 1100),
+    (102, 4, 200, 20000);

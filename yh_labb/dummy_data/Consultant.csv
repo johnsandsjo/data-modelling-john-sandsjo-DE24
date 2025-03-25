@@ -1,0 +1,5 @@
+consultant_id,company_name,org_number,company_address,fee,tax_ready,teacher_id
+1,DataCorp,123456789,DataStreet 10,150,TRUE,4
+2,AIConsulting,987654321,AI Avenue 5,200,FALSE,5
+3,CloudSolutions,112233445,Cloudy Lane 5,300,TRUE,6
+4,DBmasters,334455667,SQL way 22,250,FALSE,7

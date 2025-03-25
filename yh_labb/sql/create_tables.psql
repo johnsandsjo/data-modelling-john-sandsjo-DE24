@@ -1,0 +1,101 @@
+CREATE SCHEMA IF NOT EXISTS yh_labb;
+
+SET search_path TO yh_labb;
+
+CREATE TABLE IF NOT EXISTS School (
+  school_id integer PRIMARY KEY,
+  school_name varchar(50) NOT NULL,
+  city varchar(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Teacher (
+  teacher_id integer PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS Program (
+  program_id integer PRIMARY KEY,
+  program_name varchar(50) NOT NULL,
+  school_id integer,
+  FOREIGN KEY (school_id) REFERENCES School (school_id)
+);
+
+CREATE TABLE IF NOT EXISTS Course (
+  course_id integer PRIMARY KEY,
+  course_name varchar(50) NOT NULL,
+  code varchar(50),
+  credits integer,
+  description varchar(150),
+  teacher_id integer,
+  FOREIGN KEY (teacher_id) REFERENCES Teacher (teacher_id)
+);
+
+CREATE TABLE IF NOT EXISTS Person (
+  person_id integer PRIMARY KEY,
+  first_name varchar(50) NOT NULL,
+  last_name varchar(50) NOT NULL,
+  email varchar(100) NOT NULL,
+  personal_number integer NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Supervisor (
+  supervisor_id integer PRIMARY KEY,
+  person_id integer,
+  FOREIGN KEY (person_id) REFERENCES Person (person_id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Class (
+  class_id integer PRIMARY KEY,
+  class_name varchar(50) NOT NULL,
+  supervisor_id integer,
+  program_id integer,
+  FOREIGN KEY (supervisor_id) REFERENCES Supervisor (supervisor_id),
+  FOREIGN KEY (program_id) REFERENCES Program (program_id)
+);
+
+CREATE TABLE IF NOT EXISTS Student (
+  student_id integer PRIMARY KEY,
+  person_id integer,
+  class_id integer,
+  FOREIGN KEY (person_id) REFERENCES  Person (person_id),
+  FOREIGN KEY (class_id) REFERENCES Class (class_id)
+);
+
+CREATE TABLE IF NOT EXISTS HiredEducator (
+  hired_educator_id integer PRIMARY KEY,
+  person_id integer,
+  teacher_id integer,
+  FOREIGN KEY (person_id) REFERENCES Person (person_id),
+  FOREIGN KEY (teacher_id) REFERENCES Teacher (teacher_id)
+);
+
+CREATE TABLE IF NOT EXISTS Consultant (
+  consultant_id integer PRIMARY KEY,
+  company_name varchar(50) NOT NULL,
+  org_number integer,
+  company_address varchar(100),
+  fee decimal,
+  tax_ready boolean,
+  teacher_id integer,
+  FOREIGN KEY (teacher_id) REFERENCES Teacher (teacher_id)
+);
+
+CREATE TABLE IF NOT EXISTS SchoolCurriculum (
+  school_id integer,
+  course_id integer,
+  FOREIGN KEY (school_id) REFERENCES School (school_id),
+  FOREIGN KEY (course_id) REFERENCES Course (course_id)
+);
+
+CREATE TABLE IF NOT EXISTS ProgramCourse (
+  program_id integer,
+  course_id integer,
+  FOREIGN KEY (program_id) REFERENCES Program (program_id),
+  FOREIGN KEY (course_id) REFERENCES Course (course_id)
+);
+
+CREATE TABLE IF NOT EXISTS Enrollment (
+  course_id integer,
+  student_id integer,
+  FOREIGN KEY (course_id) REFERENCES Course (course_id),
+  FOREIGN KEY (student_id) REFERENCES Student (student_id)
+);

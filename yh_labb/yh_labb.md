@@ -1,6 +1,6 @@
 # Build a database for YrkesCo
 
-This document describe 
+This document describes the process of creating a database model for the school YrkesCo. 
 
 ## Business requirements
 - om studenter, förnamn, efternamn, personnummer, email
@@ -76,6 +76,20 @@ Normal Form|Requirments|Argument|
 ## Inserting data
 Once the tables are created, it is time to ingest dummy data to test the model. The following method was used to insert data:
 - Used Gemini to generate dummy_date in csv's for each Table
+```
+Prompt:
+I am modelling a database for a school. See below my sql statement for creating my tables and its cardinalities. I want you to create dummy data in csv's for each of these tables? The dummy data should have the theme Data and AI and courses could be things like AI, Analytics and other development courses. The course names should have a fun twist to the course names. The School's name is YrkesCo and have one location in Stockholm, called "YrkesCo Liljeholmen" and one location in Gothenburg, called "YrkesCo Lindholmen". The student and teachers name should be Swedish sounding names, the first letter in the first_name should be the same as the first letter in the last_name.
+
+The dummy data should include 6 programs and 2 supervisors where each supervisor is linked to three classes each.
+
+When doing this, also add explaination on how you ensure the data is accurate with referential integrity.
+
+
+SQL statment:
+
+CREATE SCHEMA IF NOT EXISTS...
+(the promt from here is the same as create_tables sql script)
+```
 - Added the csv's to my local machine
 - Added the csv's with "docker cp" into the container tmp folder in Docker
 

@@ -37,13 +37,16 @@ LEFT JOIN yh_labb.program p
 ON p.program_id = pc.program_id
 --WHERE program_name = null;
 
--- Show the program and its courses
-SELECT program_name, course_name, code
+-- Show the program and its courses per school
+-- For each school, list the program names and the courses offered within those programs.
+SELECT school_name, program_name, course_name, code, description
 FROM yh_labb.program p
 LEFT JOIN yh_labb.programcourse pc
 ON p.program_id = pc.program_id
 LEFT JOIN yh_labb.course c
-ON pc.course_id = c.course_id;
+ON pc.course_id = c.course_id
+LEFT JOIN yh_labb.school s
+ON p.school_id = s.school_id;
 
 -- What courses belong to more than one program
 SELECT c.course_name, COUNT(c.course_name) as nr_courses
@@ -54,3 +57,17 @@ LEFT JOIN yh_labb.program p
 ON p.program_id = pc.program_id
 GROUP BY c.course_name
 HAVING COUNT(c.course_name) > 1;
+
+-- For each program, list the names of the students enrolled in the classes within that program.
+SELECT program_name, course_name, first_name, last_name
+FROM yh_labb.program p
+LEFT JOIN yh_labb.programcourse pc
+ON p.program_id = pc.program_id
+LEFT JOIN yh_labb.course c
+ON pc.course_id = c.course_id
+LEFT JOIN yh_labb.enrollment e
+ON c.course_id = e.course_id
+LEFT JOIN yh_labb.student s
+ON e.student_id = s.student_id
+LEFT JOIN yh_labb.person pe
+ON pe.person_id = s.person_id;

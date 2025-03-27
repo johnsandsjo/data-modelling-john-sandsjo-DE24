@@ -26,7 +26,7 @@ This document describes the process of creating a database model for the school 
 
 **Additional Business rules**
 - A course can have only one teacher
-- Standaone course can be taken online by student in any of schools. But courses are only open for students enrolled in the school
+- Standalone course can be taken online by student in any of schools. But courses are only open for students enrolled in the school
 - A program belongs to one school
 - A course can belong to many programs (Example being a Python fundamentals course)
 

@@ -70,21 +70,24 @@ Normal Form|Requirments|Argument|
 |**2NF**|✅ 1NF<br>✅ Non-prime attributes must be functionally dependendent on entire primary key and not just part of it | *Each table is 1NF. No attributes is functionaly determined by other than the primary key. Thus, 2NF is reached*|
 |**3NF**|✅ 2NF<br>✅ Non-prime attributes depends on the key, the whole key and nothing but the key. | *Each table is 2NF. There are no transitive dependencies of the attributes. Thus, 3NF is reached*|
 
+## Creating tables
+[See this sql script](https://github.com/johnsandsjo/data-modelling-john-sandsjo-DE24/blob/main/yh_labb/sql/create_tables.psql) on how the tables are being created to ensure refential integrity
+
 ## Inserting data
-
-In order to ingest the dummy data I first prepare it in csv's add it to the project folder and use the COPY command in psql.
-
-Examples Class table:
-
-First step is to add all files into the container
+Once the tables are created, it is time to ingest dummy data to test the model. The following method was used to insert data:
+- Used Gemini to generate dummy_date in csv's for each Table
+- Added the csv's to my local machine
+- Added the csv's with "docker cp" into the container tmp folder in Docker
 
 ```
+Example Class csv:
 docker cp dummy_data/Class.csv postgres_data_modeling:/tmp/Class.csv
 ```
 
-Then i add it to the database using the COPY command
+- copied the data from the csv's to the database using the COPY command
 ```
+Example Enrollment csv
 COPY Enrollment FROM '/tmp/Class.csv' WITH (FORMAT CSV, HEADER);
 ```
-Problem with int for personal_number
-Wrong data type for course code
+
+During the process a iterating by fixing a wrongly defined data type of the course description attribute. I also had some problems with using INTEGER for personal_number which caused me to change to varchar(50), this might cause problem downstream.

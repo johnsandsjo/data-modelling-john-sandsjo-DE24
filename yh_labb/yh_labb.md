@@ -2,6 +2,15 @@
 
 This document describes the process of creating a database model for the school YrkesCo. 
 
+# Table of Contents
+1. [Business requirements](#business-requirements)
+2. [Conceptual model](#conceptual-model)
+3. [Relationships statements for each entity](#relationship-statements-for-each-entity)
+4. [Logical model](#logical-model)
+5. [Physical model](#physical-model)
+6. [Arguing for normalisation](#arguing-for-normalisation)
+7. [Creating database](#creating-database)
+
 ## Business requirements
 - om studenter, förnamn, efternamn, personnummer, email
 - utbildare kan vara konsulter
@@ -53,8 +62,6 @@ This document describes the process of creating a database model for the school 
 - A School can have many corses in their Curriculum
 - A Course can be part of many school's Curriculums.
 
-
-
 ## Logical model
 <img src = "yh_labb_assets/logical_diagram_yh_labb.png">
 
@@ -70,10 +77,11 @@ Normal Form|Requirments|Argument|
 |**2NF**|✅ 1NF<br>✅ Non-prime attributes must be functionally dependendent on entire primary key and not just part of it | *Each table is 1NF. No attributes is functionaly determined by other than the primary key. Thus, 2NF is reached*|
 |**3NF**|✅ 2NF<br>✅ Non-prime attributes depends on the key, the whole key and nothing but the key. | *Each table is 2NF. There are no transitive dependencies of the attributes. Thus, 3NF is reached*|
 
-## Creating tables
+## Creating database
+### Creating tables
 [See this sql script](https://github.com/johnsandsjo/data-modelling-john-sandsjo-DE24/blob/main/yh_labb/sql/create_tables.psql) on how the tables are being created to ensure refential integrity
 
-## Inserting data
+### Inserting data
 Once the tables are created, it is time to ingest dummy data to test the model. The following method was used to insert data:
 - Used Gemini to generate dummy_date in csv's for each Table
 ```

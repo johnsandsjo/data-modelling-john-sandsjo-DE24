@@ -99,17 +99,11 @@ CREATE SCHEMA IF NOT EXISTS...
 (the promt from here is the same as create_tables sql script)
 ```
 - Added the csv's to my local machine
-- Added the csv's with "docker cp" into the container tmp folder in Docker
-
-```
-Example Class csv:
-docker cp dummy_data/Class.csv postgres_data_modeling:/tmp/Class.csv
-```
-
+- Created a bind mount in docker compose with source folder from bullet above and target folder in mnt folder in container
 - copied the data from the csv's to the database using the COPY command
 ```
 Example Enrollment csv
-COPY Enrollment FROM '/tmp/Class.csv' WITH (FORMAT CSV, HEADER);
+COPY Enrollment FROM '/mnt/Enrollment.csv' WITH (FORMAT CSV, HEADER);
 ```
 
-During the process a iterating by fixing a wrongly defined data type of the course description attribute. I also had some problems with using INTEGER for personal_number which caused me to change to varchar(50), this might cause problem downstream.
+The process was iterated du to fixes in wrongly defined data type of the course description attribute. There was also some problems with using INTEGER for personal_number which caused me to change to varchar(50), this might cause problem downstream.

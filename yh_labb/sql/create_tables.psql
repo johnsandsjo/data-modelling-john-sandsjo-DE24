@@ -99,3 +99,9 @@ CREATE TABLE IF NOT EXISTS Enrollment (
   FOREIGN KEY (course_id) REFERENCES Course (course_id),
   FOREIGN KEY (student_id) REFERENCES Student (student_id)
 );
+
+
+CREATE TABLE IF NOT EXISTS Enrollment2 (
+  course_id integer,
+  student_id integer
+);

@@ -11,6 +11,9 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - data_modeling_course:/var/lib/postgresql/data
+      - type: bind
+        source: /Users/john.sandsjo/Documents/github/data-modelling-john-sandsjo-DE24/yh_labb/dummy_data
+        target: /mnt
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s

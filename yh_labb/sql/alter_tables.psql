@@ -1,0 +1,14 @@
+--adding grade column to enrollment
+ALTER TABLE yh_labb.enrollment
+ADD COLUMN grade varchar(10);
+
+--verifying adding grade column
+SELECT * FROM yh_labb.enrollment;
+
+--generating random grades
+UPDATE yh_labb.enrollment
+SET grade = CASE
+    WHEN random() < 0.15 THEN 'IG'
+    WHEN random() < 0.66 THEN 'G'
+    ELSE 'VG'
+END;

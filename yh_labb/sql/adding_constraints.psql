@@ -1,0 +1,24 @@
+-- Adding unique constraints to class name
+ALTER TABLE yh_labb.class
+ADD CONSTRAINT unique_class_names
+UNIQUE (class_name);
+
+
+-- Adding unique constraints to course codes
+ALTER TABLE yh_labb.course
+ADD CONSTRAINT unique_course_code
+UNIQUE (code);
+
+-- Adding unique constraints to personal number
+ALTER TABLE yh_labb.person
+ADD CONSTRAINT unique_personal_number
+UNIQUE (personal_number);
+
+-- checking constraints on course table
+SELECT
+    constraint_name,
+    constraint_type
+FROM
+    information_schema.table_constraints
+WHERE
+    table_schema = 'yh_labb' AND table_name = 'course';

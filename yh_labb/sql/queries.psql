@@ -1,5 +1,46 @@
--- Testing joins
+-- Testing joins and business requirements
 
+-- For each school, list the program names and the courses offered within those programs.
+SELECT school_name, program_name, course_name, code, description
+FROM yh_labb.program p
+LEFT JOIN yh_labb.programcourse pc
+ON p.program_id = pc.program_id
+LEFT JOIN yh_labb.course c
+ON pc.course_id = c.course_id
+LEFT JOIN yh_labb.school s
+ON p.school_id = s.school_id;
+
+-- What courses belong to more than one program
+SELECT c.course_name, COUNT(c.course_name) as nr_courses
+FROM yh_labb.course c
+LEFT JOIN yh_labb.programcourse pc
+ON pc.course_id = c.course_id
+LEFT JOIN yh_labb.program p
+ON p.program_id = pc.program_id
+GROUP BY c.course_name
+HAVING COUNT(c.course_name) > 1;
+
+-- Are there any courses not belonging to a program?
+SELECT course_name, code, program_name
+FROM yh_labb.course c
+LEFT JOIN yh_labb.programcourse pc
+ON c.course_id = pc.course_id
+LEFT JOIN yh_labb.program p
+ON p.program_id = pc.program_id;
+
+-- For each program, list the names of the students and their personal number enrolled in the classes within that program.
+SELECT program_name, course_name, first_name, last_name, personal_number
+FROM yh_labb.program p
+LEFT JOIN yh_labb.programcourse pc
+ON p.program_id = pc.program_id
+LEFT JOIN yh_labb.course c
+ON pc.course_id = c.course_id
+LEFT JOIN yh_labb.enrollment e
+ON c.course_id = e.course_id
+LEFT JOIN yh_labb.student s
+ON e.student_id = s.student_id
+LEFT JOIN yh_labb.person pe
+ON pe.person_id = s.person_id;
 
 -- What supervisor belong to a specific class
 SELECT class_name, s.supervisor_id, first_name, last_name
@@ -27,46 +68,3 @@ ON t.teacher_id = con.teacher_id
 LEFT JOIN yh_labb.person pe
 ON pe.person_id = he.person_id
 WHERE class_name = 'AI2023-B';
-
--- Are there any courses not bellonging to a program?
-SELECT course_name, code, program_name
-FROM yh_labb.course c
-LEFT JOIN yh_labb.programcourse pc
-ON c.course_id = pc.course_id
-LEFT JOIN yh_labb.program p
-ON p.program_id = pc.program_id
---WHERE program_name = null;
-
--- For each school, list the program names and the courses offered within those programs.
-SELECT school_name, program_name, course_name, code, description
-FROM yh_labb.program p
-LEFT JOIN yh_labb.programcourse pc
-ON p.program_id = pc.program_id
-LEFT JOIN yh_labb.course c
-ON pc.course_id = c.course_id
-LEFT JOIN yh_labb.school s
-ON p.school_id = s.school_id;
-
--- What courses belong to more than one program
-SELECT c.course_name, COUNT(c.course_name) as nr_courses
-FROM yh_labb.course c
-LEFT JOIN yh_labb.programcourse pc
-ON pc.course_id = c.course_id
-LEFT JOIN yh_labb.program p
-ON p.program_id = pc.program_id
-GROUP BY c.course_name
-HAVING COUNT(c.course_name) > 1;
-
--- For each program, list the names of the students and their personal number enrolled in the classes within that program.
-SELECT program_name, course_name, first_name, last_name, personal_number
-FROM yh_labb.program p
-LEFT JOIN yh_labb.programcourse pc
-ON p.program_id = pc.program_id
-LEFT JOIN yh_labb.course c
-ON pc.course_id = c.course_id
-LEFT JOIN yh_labb.enrollment e
-ON c.course_id = e.course_id
-LEFT JOIN yh_labb.student s
-ON e.student_id = s.student_id
-LEFT JOIN yh_labb.person pe
-ON pe.person_id = s.person_id;

@@ -1,0 +1,42 @@
+--CREATING TRIGGER FUNCTION
+CREATE OR REPLACE FUNCTION check_supervisor_limit()
+RETURNS TRIGGER AS $$
+DECLARE
+    count_class INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO count_class
+    FROM yh_labb.class  -- Explicitly schema-qualify for safety
+    WHERE supervisor_id = NEW.supervisor_id;
+
+    IF count_class >= 3 AND TG_OP = 'INSERT' THEN
+        RAISE EXCEPTION 'Supervisor % is already assigned to the maximum 3 classes.', NEW.supervisor_id;
+    ELSIF count_class > 3 AND TG_OP = 'UPDATE' AND NEW.supervisor_id IS DISTINCT FROM OLD.supervisor_id THEN
+        RAISE EXCEPTION 'Supervisor % is already assigned to the maximum 3 classes.', NEW.supervisor_id;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+----------------------------------------
+--CREATING TRIGGER
+CREATE TRIGGER before_insert_class
+BEFORE INSERT OR UPDATE ON yh_labb.class
+FOR EACH ROW
+EXECUTE FUNCTION check_supervisor_limit();
+
+----------------------------------------
+--TESTING INSERTS
+SELECT * FROM yh_labb.supervisor;
+SELECT * FROM yh_labb.person WHERE person_id IN (4,8);
+SELECT * FROM yh_labb.class;
+
+--In psql a trigger is added:
+-- before_insert_class BEFORE INSERT OR UPDATE ON yh_labb.class 
+-- FOR EACH ROW EXECUTE FUNCTION check_supervisor_limit()
+
+-- Trying to insert a 4th class for supervisor 1
+INSERT INTO yh_labb.class (class_id, class_name, supervisor_id, program_id)
+VALUES (7, 'DS2023-B', 1, 1);
+-- gives error:
+-- ERROR: Supervisor 1 is already assigned to the maximum 3 classes.

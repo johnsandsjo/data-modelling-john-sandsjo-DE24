@@ -12,3 +12,10 @@ SET grade = CASE
     WHEN random() < 0.66 THEN 'G'
     ELSE 'VG'
 END;
+
+
+--adding standalone course to courses
+INSERT INTO yh_labb.course (course_id, course_name, code, credits, description, teacher_id)
+VALUES (8, 'Intro to RAGs', 'IR20', 10, 'Learn the basica about the hottest topic of AI, RAGs', 7);
+
+SELECT * FROM yh_labb.course;

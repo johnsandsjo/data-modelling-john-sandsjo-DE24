@@ -73,7 +73,7 @@ This document describes the process of creating a database model for the school 
 
 Normal Form|Requirments|Argument|
 |--|--|--|
-|**1NF**|✅ all tables have primary key<br>✅ No repeating groups<br> ✅ Uniform column data <br> ✅ Row order does not matter|*Going through each table, all of them has a primary key, the junction tables has it by combining its foreign keys. Each attribute is of one data type and includes no groupings. Row order does matter. Thus, it adhere to first normal form*|
+|**1NF**|✅ all tables have primary key<br>✅ No repeating groups<br> ✅ Uniform column data <br> ✅ Row order does not matter|*Going through each table, all of them has a primary key, the junction tables has it by combining its foreign keys. Each attribute is of one data type and includes no groupings. Row order does not matter. Thus, it adhere to first normal form*|
 |**2NF**|✅ 1NF<br>✅ Non-prime attributes must be functionally dependendent on entire primary key and not just part of it | *Each table is 1NF. No attributes is functionaly determined by other than the primary key. Thus, 2NF is reached*|
 |**3NF**|✅ 2NF<br>✅ Non-prime attributes depends on the key, the whole key and nothing but the key. | *Each table is 2NF. There are no transitive dependencies of the attributes. Thus, 3NF is reached*|
 

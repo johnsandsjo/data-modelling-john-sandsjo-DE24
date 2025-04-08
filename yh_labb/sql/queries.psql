@@ -68,3 +68,15 @@ ON t.teacher_id = con.teacher_id
 LEFT JOIN yh_labb.person pe
 ON pe.person_id = he.person_id
 WHERE class_name = 'AI2023-B';
+
+-- list all teachers per course, both consultants and hired teachers. 
+SELECT t.teacher_id, course_name, company_name, first_name, last_name
+FROM yh_labb.teacher as t
+LEFT JOIN yh_labb.consultant as c
+ON t.teacher_id = c.teacher_id
+LEFT JOIN yh_labb.hirededucator he
+ON he.teacher_id = t.teacher_id
+LEFT JOIN yh_labb.person p 
+ON he.person_id = p.person_id
+LEFT JOIN yh_labb.course co
+ON t.teacher_id = co.teacher_id;
